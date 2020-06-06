@@ -8,9 +8,11 @@ async function list(table){
     return db[table];
 }
 
-async function get(table, id){
+async function getUser(table, id){
     let col =  await list(table);
-    return col.filter( item => item.id === id)[0] || null;
+    let user = col.filter( item => item.id === id)[0] || null;
+    console.log(user)
+    return user;
 }
 
 async function upsert(table, data){
@@ -18,12 +20,15 @@ async function upsert(table, data){
 }
 
 async function remove(table, id){
-    return true;
+    let col =  await list(table);
+    let newDb = col.filter( item => item.id !== id);
+    db[table] = newDb;
+    return 'User delete succes'
 }
 
 module.exports ={
     list,
-    get,
+    getUser,
     upsert,
     remove
 }
