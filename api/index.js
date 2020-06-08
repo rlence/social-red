@@ -2,6 +2,7 @@ const express = require('express');
 const config = require('../cofing');
 const bodyParser = require('body-parser');
 const swaeggerUi = require('swagger-ui-express');
+const errors = require('../network/error');
 
 //componentes de networks
 const user = require('./components/user/network');
@@ -18,7 +19,7 @@ app.use('/api-docs', swaeggerUi.serve, swaeggerUi.setup(swaggerDoc))
 app.use('/api/user', user);
 app.use('/api/auth', auth )
 
-
+app.use(errors);
 
 
 app.listen( config.api.port, (req, res) => {
