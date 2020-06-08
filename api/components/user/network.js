@@ -30,6 +30,12 @@ router.post('/', (req, res) => {
 
 });
 
+router.put('/', (req, res) => {
+    Controller.createUser(req.body)
+    .then( data => response.succes(req,  res, 'Usuario creado con exito', 201))
+    .catch( err => response.error(req, res, err.message, 400))
+})
+
 router.delete('/:id', (req, res) => {
     Controller.deleteUser(req.params.id)
     .then( data => response.succes(req, res, data, 200,))
