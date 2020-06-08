@@ -21,7 +21,6 @@ async function upsert(table, data){
     }
     
     db[table].push(data)
-    console.log(db)
 }
 
 async function remove(table, id){
@@ -31,9 +30,19 @@ async function remove(table, id){
     return 'User delete succes'
 }
 
+async function query(table, q) {
+
+    let col =  await list(table);
+    let keys = Object.keys(q);
+    let key = keys[0];
+    let user = col.filter( item => item[key] === q[key] )[0] || null;
+    return user;
+}
+
 module.exports ={
     list,
     getUser,
     upsert,
-    remove
+    remove,
+    query
 }
