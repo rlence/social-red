@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    console.log('estoy aqui', req.params.id)
+
     Controller.get(req.params.id)
     .then( user => response.succes(req, res, user, 200))
     .catch( err => response.error(req, res, err.message, 500));

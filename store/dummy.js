@@ -11,12 +11,17 @@ async function list(table){
 async function getUser(table, id){
     let col =  await list(table);
     let user = col.filter( item => item.id === id)[0] || null;
-    console.log(user)
     return user;
 }
 
 async function upsert(table, data){
-    return db[table].push(data)
+ 
+    if(!db[table]) {
+        db[table] = [];
+    }
+    
+    db[table].push(data)
+    console.log(db)
 }
 
 async function remove(table, id){
