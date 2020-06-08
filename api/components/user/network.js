@@ -1,7 +1,9 @@
 const express = require('express');
 
+const secure = require('./secure');
 const response = require('../../../network/response');
 const Controller = require('./index');
+
 
 const router = express.Router();
 
@@ -30,7 +32,7 @@ router.post('/', (req, res) => {
 
 });
 
-router.put('/', (req, res) => {
+router.put('/', secure('update') ,(req, res) => {
     Controller.createUser(req.body)
     .then( data => response.succes(req,  res, 'Usuario creado con exito', 201))
     .catch( err => response.error(req, res, err.message, 400))

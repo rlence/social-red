@@ -13,7 +13,10 @@ function verify(token) {
 const check = {
     own: function(req, owner){
         const decoded = decoHeader(req);
-        console.log(decoded)
+        console.log('[check decode]',decoded)
+        if(decoded.id !== owner ){
+            throw new Error('No puedes hacer esto')
+        }
       //...  
     },
 }
