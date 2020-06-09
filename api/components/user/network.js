@@ -44,5 +44,11 @@ router.delete('/:id', (req, res, next) => {
     .catch( next)
 })
 
+router.post('/follow/:id', secure('follow') ,( req, res, next ) => {
+    Controller.follow(req.body.id, req.params.id)
+    .then( data => response.succes(req, res, data, 201))
+    .catch(next)
+})
+
 
 module.exports = router;

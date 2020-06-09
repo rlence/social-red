@@ -32,7 +32,7 @@ module.exports = function(injectedStore){
         }else{
             user.id = nanoid();
         }
-
+        
         if(body.password || body.username) {
             await auth.upsert({
                 id:user.id,
@@ -52,10 +52,18 @@ module.exports = function(injectedStore){
         return store.remove(TABLA,id);
     }
 
+    function follow(from, to) {
+        return store.upsert( TABLA + '_follow',{
+            user_from: from,
+            user_to: to
+        });
+    }
+
     return {
         list,
         get,
         createUser,
         deleteUser,
+        follow,
     }
 }

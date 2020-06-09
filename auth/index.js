@@ -16,12 +16,13 @@ function verify(token) {
 const check = {
     own: function(req, owner){
         const decoded = decoHeader(req);
-        console.log('decode',decoded)
-        console.log('owner',owner)
         if(decoded !== owner ){
             throw error('No puedes hacer esto', 401)
-        }
-      //...  
+        } 
+    },
+    logged: function(req){
+        const decoded = decoHeader(req);
+        
     },
 }
 

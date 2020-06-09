@@ -79,9 +79,11 @@ function update(table, data) {
 }
 
 function upsert(table, data){
+    //... TODO, PEDIE SI EXISTE EL USER CON EL ID, EN CASO DE QUE NO EXISTA 
+    //HACER EL INSERT,
+
     if(data && data.id) {
         return update(table, data)
-
     }else {
         return insert(table, data);
     }

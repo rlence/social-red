@@ -21,6 +21,7 @@ module.exports = function(injectedStore){
         if(data.password){
             authData.password = await bcryt.hash(data.password, 5);
         }
+        
         return store.upsert(TABLA, authData);
     }
 
