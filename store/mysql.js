@@ -38,7 +38,70 @@ function list(table) {
     return new Promise( (resolve, reject) => {
         connection.query(`SELECT * FROM ${table}`, (err, data) => {
             if(err) {
-                return reject(error);
+                return reject(err);
+            }
+            resolve(data)
+        })
+    })
+}
+
+function getUser(table, id) {
+    return new Promise( (resolve, reject) => {
+        connection.query(`SELECT * FROM ${table} WHERE id = '${id}'`, (err, data) => {
+            if(err) {
+                return reject(err);
+            }
+            resolve(data)
+        })
+    })
+}
+
+function insert(table, data) {
+    return new Promise( (resolve, reject) => {
+        connection.query(`INSERT INTO ${table} SET ?`,data, (err, reulst) => {
+            if(err) {
+                return reject(err);
+            }
+            resolve(reulst)
+        })
+    })
+}
+
+function update(table, data) {
+    return new Promise( (resolve, reject) => {
+        connection.query(`UPDATE ${table} SET ? WHERE id=?`,[data, data.id], (err, reulst) => {
+            if(err) {
+                return reject(err);
+            }
+            resolve(reulst)
+        })
+    })
+}
+
+function upsert(table, data){
+    if(data && data.id) {
+        return update(table, data)
+
+    }else {
+        return insert(table, data);
+    }
+   
+}
+
+function query(table, query){
+    return new Promise( (resolve, reject) => {
+        connection.query(`SELECT * FROM ${table} WHERE ?`, query, (err, res) =>{
+            if(err) return reject(err);
+            resolve(res[0] || null);
+        })
+    })
+}
+
+function remove(table, id) {
+    return new Promise( (resolve, reject) => {
+        connection.query(`SELECT * FROM ${table} WHERE id = '${id}'`, (err, data) => {
+            if(err) {
+                return reject(err);
             }
             resolve(data)
         })
@@ -47,4 +110,8 @@ function list(table) {
 
 module.exports = {
     list,
+    getUser,
+    upsert,
+    remove,
+    query
 }

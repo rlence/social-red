@@ -28,10 +28,10 @@ module.exports = function(injectedStore){
         const data = await store.query(TABLA, { username: username })
         return bcryt.compare(password, data.password)
         .then(iqual =>{ 
-            
             if(iqual === true){
                 //... generar token
-                return auth.sign(data);
+                const token = auth.sign(data.id);
+                return token;
             }else{
                 throw new Error('Informacion invalida')
             }

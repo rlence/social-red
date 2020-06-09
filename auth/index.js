@@ -1,10 +1,12 @@
 const jwt = require('jsonwebtoken');
 const config = require('../cofing');
-const secret = config.jwt.secret;
 const error = require('../utils/error');
+const secret = config.jwt.secret;
 
 function sign(data) {
-    return jwt.sign(data, secret);
+
+    const newToken = jwt.sign(data, secret);
+    return newToken;
 }
 
 function verify(token) {
@@ -14,7 +16,9 @@ function verify(token) {
 const check = {
     own: function(req, owner){
         const decoded = decoHeader(req);
-        if(decoded.id !== owner ){
+        console.log('decode',decoded)
+        console.log('owner',owner)
+        if(decoded !== owner ){
             throw error('No puedes hacer esto', 401)
         }
       //...  
@@ -35,10 +39,10 @@ function getToken(auth) {
 }
 
 function decoHeader (req) {
+
     const authorization = req.headers.authorization || '';
     const token = getToken(authorization);
     const decoded = verify(token);
-
     req.user = decoded;
     return decoded;
 }
