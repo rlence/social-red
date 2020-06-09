@@ -13,12 +13,14 @@ const swaggerDoc = require('./swagger.json')
 
 // Midelwere
 app.use(bodyParser.json());
+
 //ruta para documentacion
 app.use('/api-docs', swaeggerUi.serve, swaeggerUi.setup(swaggerDoc))
 // ROUTER
 app.use('/api/user', user);
 app.use('/api/auth', auth )
 
+//Midelwere
 app.use(errors);
 
 
