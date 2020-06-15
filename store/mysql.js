@@ -115,5 +115,6 @@ module.exports = {
     getUser,
     upsert,
     remove,
-    query
+    query,
+    insert
 }
